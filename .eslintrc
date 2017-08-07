@@ -1,0 +1,27 @@
+---
+
+extends:
+  - airbnb
+
+env:
+  browser: true
+  node: true
+  jest: true
+
+plugins: ["react", "flowtype"]
+
+parser: babel-eslint
+
+rules:
+  # this is very noisy, so disable
+  consistent-return: 0
+  # Prettier and ESLint may disagree on the following rules
+  indent: 0
+  no-this-before-super: 0
+  array-bracket-spacing: 0
+  comma-dangle: 0
+  semi: [2, never]
+  react/jsx-filename-extension: [1, { extensions: ['.js', '.jsx'] }]
+  react/prop-types: 0
+  flowtype/boolean-style: [2, boolean]
+  flowtype/define-flow-type: 1

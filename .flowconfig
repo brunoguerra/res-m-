@@ -1,0 +1,8 @@
+[ignore]
+.*/styled-components/src/.*
+
+[include]
+
+[libs]
+
+[options]
