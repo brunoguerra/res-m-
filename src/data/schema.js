@@ -49,6 +49,7 @@ const QLTimelineItemType = new GraphQLObjectType({
     date: { type: GraphQLString },
     img: { type: GraphQLString },
     title: { type: GraphQLString },
+    subtitle: { type: GraphQLString },
     description: { type: GraphQLString },
     tags: { type: new GraphQLList(GraphQLString) },
   },

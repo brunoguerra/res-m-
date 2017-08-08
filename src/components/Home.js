@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay'
 import Timeline from './Timeline'
 
 const Home = ({ viewer }) => (
-  <Timeline data={viewer} />
+  <Timeline items={viewer.document.items.edges.map(edge => edge.node)} />
 )
 
 Home.PropTypes = {

@@ -1,14 +1,10 @@
-/*csslint universal-selector:false, box-sizing:false*/
+/*csslint universal-selector:false, box-sizing:false, ids:false */
 
 body {
-  background: linear-gradient(55deg,#4E75B9 30%,#336699 90%);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  background: linear-gradient(55deg,#663399 30%,#336699 90%);
   min-height: 100vh;
   width: 100vw;
   margin: 0;
-  padding: 20px;
   font-family: 'Source Sans Pro', arial, sans-serif;
   font-weight: 300;
   color: #333;
@@ -17,4 +13,9 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+#root {
+  min-height: 100%;
+  width: 100%;
 }

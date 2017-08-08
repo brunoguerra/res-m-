@@ -1,23 +1,28 @@
 import React from 'react'
 import { createFragmentContainer, graphql } from 'react-relay'
-import { AppHeader, AppFooter, Title } from './kit/Layout'
-import ProfilePicutre from './user/ProfilePicture'
+import {
+  RootContent,
+  AppHeader,
+  AppFooter,
+  HeaderProfileContainer,
+  HeaderProfilePicutre,
+  Title } from './kit/Layout'
 import * as pt from './PropTypesDefinition'
 
 
-const App = ({ viewer, children }) => console.log('DCO: ', viewer) || (
-  <div data-framework="relay">
+const App = ({ viewer, children }) => (
+  <RootContent data-framework="relay">
     <AppHeader>
-      <ProfilePicutre src={viewer.profilePicutre} />
-      <div>
-        <Title>{viewer.document.meta.title}</Title>
-      </div>
+      <HeaderProfileContainer>
+        <HeaderProfilePicutre src={`assets/${viewer.profilePicutre}`} />
+      </HeaderProfileContainer>
+      <Title>{viewer.document.meta.title}</Title>
     </AppHeader>
 
     {children}
 
     <AppFooter />
-  </div>
+  </RootContent>
 )
 
 App.propTypes = {
