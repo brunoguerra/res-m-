@@ -1,7 +1,6 @@
 import 'babel-polyfill'
 import express from 'express'
 import graphQLHTTP from 'express-graphql'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import { getFarceResult } from 'found/lib/server'
 import ReactDOMServer from 'react-dom/server'
 import serialize from 'serialize-javascript'
@@ -32,29 +31,7 @@ if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack') // eslint-disable-line
   const webpackMiddleware = require('webpack-dev-middleware')  // eslint-disable-line
 
-  const webpackConfig = {
-    entry: [
-      'babel-polyfill',
-      './src/client',
-    ],
-
-    output: {
-      path: '/',
-      filename: 'assets/bundle.js',
-    },
-
-    module: {
-      rules: [
-        { test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' },
-        { test: /\.css$/, use: ExtractTextPlugin.extract('css-loader') },
-        { test: /learn\.json$/, use: 'file-loader?name=[name].[ext]' },
-      ],
-    },
-
-    plugins: [
-      new ExtractTextPlugin('styles.css'),
-    ],
-  }
+  const webpackConfig = require('../webpack.dev')
 
   app.use(webpackMiddleware(webpack(webpackConfig), {
     stats: { colors: true },
