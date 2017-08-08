@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import express from 'express'
 import graphQLHTTP from 'express-graphql'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
@@ -10,15 +11,13 @@ import compression from 'compression'
 import session from 'express-session'
 import bodyParser from 'body-parser'
 import logger from 'morgan'
-import chalk from 'chalk'
-import errorHandler from 'errorhandler'
-import lusca from 'lusca'
 import expressStatusMonitor from 'express-status-monitor'
 // relay
 import { ServerFetcher } from './fetcher'
 import { createResolver, historyMiddlewares, render, routeConfig }
   from './router'
 import schema from './data/schema'
+import indexHtml from './indexHtml'
 // config
 const PORT = process.env.PORT || 4000
 
@@ -41,7 +40,7 @@ if (process.env.NODE_ENV !== 'production') {
 
     output: {
       path: '/',
-      filename: 'bundle.js',
+      filename: 'assets/bundle.js',
     },
 
     module: {
@@ -61,6 +60,7 @@ if (process.env.NODE_ENV !== 'production') {
     stats: { colors: true },
   }))
 }
+
 app.use(expressStatusMonitor())
 app.use(compression())
 app.use(logger('dev'))
@@ -93,27 +93,12 @@ app.use(async (req, res) => {
     return
   }
 
-  res.status(status).send(`
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <title>TheApp</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-<div id="root">${ReactDOMServer.renderToString(element)}</div>
-
-<script>
-  window.__RELAY_PAYLOADS__ = ${serialize(fetcher, { isJSON: true })}
-</script>
-<script src="/bundle.js"></script>
-</body>
-
-</html>
-  `)
+  res.status(status).send(
+    indexHtml(
+      ReactDOMServer.renderToString(element),
+      serialize(fetcher, { isJSON: true })
+    )
+  )
 })
 
 app.listen(PORT, () => {

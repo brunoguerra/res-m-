@@ -6,10 +6,13 @@
     "start": "node dist/server",
     "dev": "npm run relay-compiler && nodemon ./src/server.js --exec babel-node",
     "update-schema": "babel-node tools/updateSchema.js",
-    "build": "babel src/ --ignore *-test.js -d dist/ --copy-files",
+    "webpack:prod": "webpack --env=prod --progress --profile --colors",
+    "build": "babel src/ --ignore *-test.js -d dist/ --copy-files && npm run webpack:prod",
     "flow": "flow"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-runtime": "^6.25.0",
     "body-parser": "^1.17.2",
     "chalk": "^2.0.1",
     "classnames": "^2.2.5",

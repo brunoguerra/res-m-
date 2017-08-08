@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import 'isomorphic-fetch'
 
 // TODO: Update this when someone releases a real, production-quality solution
 // for handling universal rendering with Relay Modern. For now, this is just
@@ -6,7 +6,7 @@ import 'isomorphic-fetch';
 
 class FetcherBase {
   constructor(url) {
-    this.url = url;
+    this.url = url
   }
 
   async fetch(operation, variables) {
@@ -16,43 +16,43 @@ class FetcherBase {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ query: operation.text, variables }),
-    });
-    return response.json();
+    })
+    return response.json()
   }
 }
 
 export class ServerFetcher extends FetcherBase {
   constructor(url) {
-    super(url);
+    super(url)
 
-    this.payloads = [];
+    this.payloads = []
   }
 
   async fetch(...args) {
-    const i = this.payloads.length;
-    this.payloads.push(null);
-    const payload = await super.fetch(...args);
-    this.payloads[i] = payload;
-    return payload;
+    const i = this.payloads.length
+    this.payloads.push(null)
+    const payload = await super.fetch(...args)
+    this.payloads[i] = payload
+    return payload
   }
 
   toJSON() {
-    return this.payloads;
+    return this.payloads
   }
 }
 
 export class ClientFetcher extends FetcherBase {
   constructor(url, payloads) {
-    super(url);
+    super(url)
 
-    this.payloads = payloads;
+    this.payloads = payloads
   }
 
   async fetch(...args) {
     if (this.payloads.length) {
-      return this.payloads.shift();
+      return this.payloads.shift()
     }
 
-    return super.fetch(...args);
+    return super.fetch(...args)
   }
 }
