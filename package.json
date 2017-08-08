@@ -7,7 +7,7 @@
     "dev": "npm run relay-compiler && nodemon ./src/server.js --exec babel-node",
     "update-schema": "babel-node tools/updateSchema.js",
     "webpack:prod": "webpack --env=prod --progress --profile --colors",
-    "build": "babel src/ --ignore *-test.js -d dist/ --copy-files && npm run webpack:prod",
+    "build": "npm run update-schema && npm run relay-compiler && babel src/ --ignore *-test.js -d dist/ --copy-files && npm run webpack:prod",
     "flow": "flow"
   },
   "dependencies": {
